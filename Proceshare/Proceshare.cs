@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Proceshare
 {
@@ -46,8 +47,7 @@ namespace Proceshare
 
             while (true)
             {
-                HttpApi HttpApi = new HttpApi(HttpVerb.GET);
-                HttpApi.MakeRequest("api/message");
+                List<int> Result = Calculator.Calculate();
                 if (worker.CancellationPending == true)
                 {
                     e.Cancel = true;

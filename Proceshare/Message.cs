@@ -8,13 +8,8 @@ namespace Proceshare
 {
     public class Message
     {
-        public int Id { get; set; }
+        public string Type { get; set; }
 
-
-        public int UserId { get; set; }
-
-        public string Title { get; set; }
-
-        public string Body { get; set; }
+        public List<int> Data { get; set; }
     }
 }
