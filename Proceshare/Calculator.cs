@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using System;
 
 namespace Proceshare
 {
@@ -8,34 +9,45 @@ namespace Proceshare
         static Message GetMessageFromApi()
         {
             HttpApi HttpApi = new HttpApi(HttpVerb.GET);
-            Message message = JsonConvert.DeserializeObject<Message>(HttpApi.MakeRequest("api/message"));
+            try {
+                Message message = JsonConvert.DeserializeObject<Message>(HttpApi.MakeRequest("api/message"));
+                return message;
+            } catch (Exception) {
+                return null;
+            }
 
-            return message;
         }
 
         static string GetRawMethodFromApi(string Method)
         {
-            HttpApi HttpApi = new HttpApi(HttpVerb.GET);
-            string RawMethod = JsonConvert.DeserializeObject<string>(HttpApi.MakeRequest("api/" + Method));
-
-            return RawMethod;
+            try {
+                HttpApi HttpApi = new HttpApi(HttpVerb.GET);
+                string RawMethod = HttpApi.MakeRequest("api/function/" + Method);
+                return RawMethod;
+            } catch (Exception) {
+                return "";
+            }
+           
         }
 
         static List<int> Sort(List<int> Elements, string Method)
         {
-            ScriptEngine engine = new ScriptEngine("jscript");
-            ParsedScript parsed;
+            ScriptEngine Engine = new ScriptEngine("jscript");
+            ParsedScript Parsed;
             string RawMethod = GetRawMethodFromApi(Method);
-            for (var i=0; i < Elements.Count; i++) {
-                for (var j=0; j < Elements.Count - 1 - i; j++) {
-                    parsed = engine.Parse(RawMethod);
-                    var result = parsed.CallMethod(Method, Elements[j + 1], Elements[j]);
-                    if (true) {
-                        Swap(ref Elements, j, j + 1);
+            if (!string.IsNullOrEmpty(RawMethod)) {
+                for (var i = 0; i < Elements.Count; i++) {
+                    for (var j = 0; j < Elements.Count - 1 - i; j++) {
+                        Parsed = Engine.Parse(RawMethod);
+                        var Result = (bool)Parsed.CallMethod(Method, Elements[j + 1], Elements[j]);
+                        if (Result) {
+                            Swap(ref Elements, j, j + 1);
+                        }
                     }
                 }
+                return Elements;
             }
-            return Elements;
+            return new List<int>();
         }
 
         static void Swap(ref List<int> Elements, int FirstKey, int SecondKey)
@@ -47,10 +59,14 @@ namespace Proceshare
 
         public static List<int> Calculate()
         {
-            Message Message = GetMessageFromApi();
-            List<int> SortedElements = Sort(Message.Data, Message.Type);
-
-            return SortedElements;
+            try {
+                Message Message = GetMessageFromApi();
+                List<int> SortedElements = Sort(Message.Data, Message.Type);
+                return SortedElements;
+            } catch (Exception) {
+                return new List<int>();
+            }
+            
         }
     }
 }
