@@ -16,7 +16,7 @@ namespace Proceshare
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Proceshare());
+            Application.Run(new ProceshareForm());
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Proceshare
 {
-    partial class Proceshare
+    partial class ProceshareForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,37 +30,49 @@
         {
             this.mainPanel = new System.Windows.Forms.Panel();
             this.calculate = new System.Windows.Forms.Button();
+            this.EndCalculate = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.EndCalculate);
             this.mainPanel.Controls.Add(this.calculate);
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(460, 374);
             this.mainPanel.TabIndex = 0;
-            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
+            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainPanel_Paint);
             // 
             // calculate
             // 
-            this.calculate.Location = new System.Drawing.Point(140, 201);
+            this.calculate.Location = new System.Drawing.Point(29, 189);
             this.calculate.Name = "calculate";
             this.calculate.Size = new System.Drawing.Size(183, 63);
             this.calculate.TabIndex = 1;
             this.calculate.Text = "Start calculating";
             this.calculate.UseVisualStyleBackColor = true;
-            this.calculate.Click += new System.EventHandler(this.calculate_Click);
+            this.calculate.Click += new System.EventHandler(this.Calculate_Click);
             // 
-            // Proceshare
+            // EndCalculate
+            // 
+            this.EndCalculate.Location = new System.Drawing.Point(248, 189);
+            this.EndCalculate.Name = "EndCalculate";
+            this.EndCalculate.Size = new System.Drawing.Size(163, 63);
+            this.EndCalculate.TabIndex = 2;
+            this.EndCalculate.Text = "Stop calculating";
+            this.EndCalculate.UseVisualStyleBackColor = true;
+            this.EndCalculate.Click += new System.EventHandler(this.EndCalculate_Click);
+            // 
+            // ProceshareForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 370);
             this.Controls.Add(this.mainPanel);
-            this.Name = "Proceshare";
+            this.Name = "ProceshareForm";
             this.Text = "Proceshare";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.ProceshareForm_Load);
             this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -70,6 +82,7 @@
 
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Button calculate;
+        private System.Windows.Forms.Button EndCalculate;
     }
 }
 

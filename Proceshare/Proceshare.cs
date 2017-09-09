@@ -1,35 +1,68 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Proceshare
 {
-    public partial class Proceshare : Form
+    public partial class ProceshareForm : Form
     {
-        public Proceshare()
+
+        BackgroundWorker backgroundWorker = new BackgroundWorker();
+
+        public ProceshareForm()
         {
             InitializeComponent();
+            InitializeBackgroundWorker();
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.WorkerSupportsCancellation = true;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void InitializeBackgroundWorker()
+        {
+            backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorker_DoWork);
+        }
+
+        private void ProceshareForm_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void MainPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void mainPanel_Paint(object sender, PaintEventArgs e)
+        private void Calculate_Click(object sender, EventArgs e)
         {
-
+            (sender as Button).Enabled = false;
+            if (backgroundWorker.IsBusy != true)
+            {
+                backgroundWorker.RunWorkerAsync();
+            }
         }
 
-        private void calculate_Click(object sender, EventArgs e)
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            BackgroundWorker worker = sender as BackgroundWorker;
 
+            while (true)
+            {
+                HttpApi HttpApi = new HttpApi(HttpVerb.GET);
+                HttpApi.MakeRequest("api/message");
+                if (worker.CancellationPending == true)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+            }
+        }
+
+        private void EndCalculate_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker.WorkerSupportsCancellation == true)
+            {
+                backgroundWorker.CancelAsync();
+                this.calculate.Enabled = true;
+            }
         }
     }
 }
