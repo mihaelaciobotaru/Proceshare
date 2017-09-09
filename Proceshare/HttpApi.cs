@@ -6,6 +6,7 @@ using System.Threading;
 using System.Net;
 using System.Text;
 using System.IO;
+using System.Configuration;
 
 namespace Proceshare
 {
@@ -25,7 +26,7 @@ namespace Proceshare
 
         public HttpApi(HttpVerb method)
         {
-            EndPoint = "http://cosmin.caloian.align1-dev.emag.network/app_dev.php/";
+            EndPoint = ConfigurationManager.AppSettings["ApiHost"];
             Method = method;
             ContentType = "application/json";
             PostData = "";
@@ -33,7 +34,7 @@ namespace Proceshare
 
         public HttpApi(HttpVerb method, string postData)
         {
-            EndPoint = "http://cosmin.caloian.align1-dev.emag.network/app_dev.php/";
+            EndPoint = ConfigurationManager.AppSettings["ApiHost"];
             Method = method;
             ContentType = "application/json";
             PostData = postData;
