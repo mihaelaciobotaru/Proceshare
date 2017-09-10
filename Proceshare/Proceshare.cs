@@ -50,6 +50,7 @@ namespace Proceshare
                 Tuple<List<int>, string> Result = Calculator.Calculate();
                 float RewardResult = ProcessDone.GetReward(Result);
                 if (RewardResult > 0) {
+                    TextBox.CheckForIllegalCrossThreadCalls = false;
                     this.LabelRewardCount.Text = "" + RewardResult;
                 }
                 if (worker.CancellationPending == true)
