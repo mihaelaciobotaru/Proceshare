@@ -48,7 +48,10 @@ namespace Proceshare
             while (true)
             {
                 Tuple<List<int>, string> Result = Calculator.Calculate();
-                int RewardResult = ProcessDone.GetReward(Result);
+                float RewardResult = ProcessDone.GetReward(Result);
+                if (RewardResult > 0) {
+                    this.LabelRewardCount.Text = "" + RewardResult;
+                }
                 if (worker.CancellationPending == true)
                 {
                     e.Cancel = true;

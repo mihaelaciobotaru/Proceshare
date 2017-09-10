@@ -8,8 +8,8 @@ namespace Proceshare
 {
     public class RewardMessage
     {
-        public int reward { get; set; }
-   
+        public float reward { get; set; }
+
         public string username { get; set; }
     }
 }
