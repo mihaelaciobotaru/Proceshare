@@ -11,5 +11,7 @@ namespace Proceshare
         public string Type { get; set; }
 
         public List<int> Data { get; set; }
+
+        public string RequestId { get; set; }
     }
 }

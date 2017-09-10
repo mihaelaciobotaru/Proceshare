@@ -54,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="MessageResponse.cs" />
+    <Compile Include="ProcessDone.cs" />
+    <Compile Include="RewardMessage.cs" />
     <Compile Include="ScriptEngine.cs" />
     <Compile Include="HttpApi.cs" />
     <Compile Include="Message.cs" />

@@ -47,7 +47,8 @@ namespace Proceshare
 
             while (true)
             {
-                List<int> Result = Calculator.Calculate();
+                Tuple<List<int>, string> Result = Calculator.Calculate();
+                int RewardResult = ProcessDone.GetReward(Result);
                 if (worker.CancellationPending == true)
                 {
                     e.Cancel = true;

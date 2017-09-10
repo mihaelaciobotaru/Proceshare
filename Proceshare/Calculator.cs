@@ -15,7 +15,6 @@ namespace Proceshare
             } catch (Exception) {
                 return null;
             }
-
         }
 
         static string GetRawMethodFromApi(string Method)
@@ -57,14 +56,14 @@ namespace Proceshare
             Elements[SecondKey] = temp;
         }
 
-        public static List<int> Calculate()
+        public static Tuple<List<int>, string> Calculate()
         {
             try {
                 Message Message = GetMessageFromApi();
                 List<int> SortedElements = Sort(Message.Data, Message.Type);
-                return SortedElements;
+                return Tuple.Create(SortedElements, Message.RequestId);
             } catch (Exception) {
-                return new List<int>();
+                return Tuple.Create(new List<int>(), "");
             }
             
         }
